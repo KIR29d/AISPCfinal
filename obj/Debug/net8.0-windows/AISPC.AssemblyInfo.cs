@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AISPC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+76046d2188e2d3a3f798c1712cfb32cb83ce2f21")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8122c2e2461f552d8e20d9c835d0daa05d8454aa")]
 [assembly: System.Reflection.AssemblyProductAttribute("AISPC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AISPC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
