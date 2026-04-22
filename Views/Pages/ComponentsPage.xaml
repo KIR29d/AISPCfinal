@@ -1,0 +1,73 @@
+<Page x:Class="AISPC.Views.Pages.ComponentsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Каталог компонентов"
+      Style="{StaticResource DarkPage}">
+
+    <Grid Margin="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Text="🛠️ Каталог компонентов" 
+                   Style="{StaticResource DarkTitle}"/>
+        
+        <!-- Панель инструментов -->
+        <Grid Grid.Row="1" Margin="0,0,0,25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Поиск -->
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <TextBox x:Name="SearchBox" Width="350" Height="35" Margin="0,0,15,0"
+                         Background="#21262D" Foreground="#F0F6FC" BorderBrush="#30363D"
+                         Padding="10,8" FontSize="14"
+                         Text="Поиск компонентов..."
+                         GotFocus="SearchBox_GotFocus" LostFocus="SearchBox_LostFocus"
+                         TextChanged="SearchBox_TextChanged"/>
+                <Button Content="🔍 Найти" 
+                        Style="{StaticResource DarkButton}"
+                        Click="SearchButton_Click"/>
+            </StackPanel>
+            
+            <!-- Кнопки управления -->
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button Content="➕ Добавить" Margin="0,0,10,0"
+                        Style="{StaticResource DarkButton}"
+                        Click="AddButton_Click"/>
+                <Button Content="✏️ Изменить" Margin="0,0,10,0"
+                        Style="{StaticResource DarkButton}"
+                        Click="EditButton_Click"/>
+                <Button Content="🗑️ Удалить"
+                        Style="{StaticResource DarkButton}"
+                        Click="DeleteButton_Click"/>
+            </StackPanel>
+        </Grid>
+        
+        <!-- Таблица компонентов -->
+        <Border Grid.Row="2" Style="{StaticResource DarkBorder}">
+            <DataGrid x:Name="ComponentsGrid" 
+                      Style="{StaticResource DarkDataGrid}"
+                      ColumnHeaderStyle="{StaticResource DarkDataGridColumnHeader}"
+                      RowStyle="{StaticResource DarkDataGridRow}"
+                      CellStyle="{StaticResource DarkDataGridCell}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60"/>
+                    <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="200"/>
+                    <DataGridTextColumn Header="Категория" Binding="{Binding Category}" Width="120"/>
+                    <DataGridTextColumn Header="Бренд" Binding="{Binding Brand}" Width="100"/>
+                    <DataGridTextColumn Header="Модель" Binding="{Binding Model}" Width="120"/>
+                    <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat=C}" Width="100"/>
+                    <DataGridTextColumn Header="На складе" Binding="{Binding StockQuantity}" Width="80"/>
+                    <DataGridTextColumn Header="Мин. остаток" Binding="{Binding MinStockLevel}" Width="90"/>
+                    <DataGridCheckBoxColumn Header="Активен" Binding="{Binding IsActive}" Width="70"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</Page>

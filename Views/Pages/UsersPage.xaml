@@ -1,0 +1,142 @@
+<Page x:Class="AISPC.Views.Pages.UsersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Пользователи"
+      Style="{StaticResource DarkPage}">
+
+    <Grid Margin="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Text="👤 Управление пользователями" 
+                   Style="{StaticResource DarkTitle}"/>
+        
+        <!-- Панель поиска и управления -->
+        <Grid Grid.Row="1" Margin="0,0,0,25">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <!-- Поле поиска -->
+            <Grid Grid.Row="0" Margin="0,0,0,15">
+                <TextBox x:Name="SearchTextBox" 
+                         Style="{StaticResource DarkTextBox}"
+                         TextChanged="SearchTextBox_TextChanged"
+                         Height="35"/>
+                <TextBlock x:Name="PlaceholderText"
+                           Text="🔍 Поиск пользователей..."
+                           Foreground="#666666"
+                           FontSize="14"
+                           IsHitTestVisible="False"
+                           Margin="10,0,0,0"
+                           VerticalAlignment="Center"/>
+            </Grid>
+            
+            <!-- Панель инструментов -->
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Button Content="➕ Добавить пользователя" Margin="0,0,15,0"
+                        Style="{StaticResource DarkButton}"
+                        Click="AddUser_Click"/>
+                <Button Content="❌ Деактивировать" Margin="0,0,15,0"
+                        Style="{StaticResource DarkButton}"
+                        Click="DeactivateUser_Click"/>
+                <Button Content="✅ Активировать" Margin="0,0,15,0"
+                        Style="{StaticResource DarkButton}"
+                        Click="ActivateUser_Click"/>
+                <Button Content="🔄 Обновить"
+                        Style="{StaticResource DarkButton}"
+                        Click="RefreshUsers_Click"/>
+            </StackPanel>
+        </Grid>
+        
+        <!-- Панель добавления пользователя -->
+        <Border x:Name="AddUserPanel" Grid.Row="2" Style="{StaticResource DarkBorder}" 
+                Margin="0,0,0,25" Visibility="Collapsed">
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <!-- Заголовок панели -->
+                <TextBlock Grid.Row="0" Text="➕ Добавление нового пользователя" 
+                           FontSize="16" FontWeight="Bold" Margin="0,0,0,20"
+                           Foreground="#58A6FF"/>
+                
+                <!-- Поля ввода -->
+                <Grid Grid.Row="1" Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- Логин -->
+                    <StackPanel Grid.Column="0" Margin="0,0,15,0">
+                        <TextBlock Text="Логин:" Foreground="#F0F6FC" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <Grid>
+                            <TextBox x:Name="LoginTextBox" Style="{StaticResource DarkTextBox}" Height="35"
+                                     GotFocus="LoginTextBox_GotFocus" LostFocus="LoginTextBox_LostFocus"/>
+                            <TextBlock x:Name="LoginPlaceholder" Text="Введите логин"
+                                       Foreground="#666666" FontSize="14" IsHitTestVisible="False"
+                                       Margin="10,0,0,0" VerticalAlignment="Center"/>
+                        </Grid>
+                    </StackPanel>
+                    
+                    <!-- Пароль -->
+                    <StackPanel Grid.Column="1" Margin="0,0,15,0">
+                        <TextBlock Text="Пароль:" Foreground="#F0F6FC" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <Grid>
+                            <PasswordBox x:Name="PasswordBox" Style="{StaticResource DarkPasswordBox}" Height="35"
+                                         GotFocus="PasswordBox_GotFocus" LostFocus="PasswordBox_LostFocus"/>
+                            <TextBlock x:Name="PasswordPlaceholder" Text="Введите пароль"
+                                       Foreground="#666666" FontSize="14" IsHitTestVisible="False"
+                                       Margin="10,0,0,0" VerticalAlignment="Center"/>
+                        </Grid>
+                    </StackPanel>
+                    
+                    <!-- Роль -->
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Роль:" Foreground="#F0F6FC" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <ComboBox x:Name="RoleComboBox" Style="{StaticResource DarkComboBox}" Height="35"
+                                  DisplayMemberPath="Name" SelectedValuePath="Id"/>
+                    </StackPanel>
+                </Grid>
+                
+                <!-- Кнопки действий -->
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="💾 Сохранить" Margin="0,0,15,0"
+                            Style="{StaticResource DarkButton}"
+                            Click="SaveUser_Click"/>
+                    <Button Content="❌ Отмена"
+                            Style="{StaticResource DarkButton}"
+                            Click="CancelAddUser_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        
+        <!-- Таблица пользователей -->
+        <Border Grid.Row="3" Style="{StaticResource DarkBorder}">
+            <DataGrid x:Name="UsersGrid" 
+                      Style="{StaticResource DarkDataGrid}"
+                      ColumnHeaderStyle="{StaticResource DarkDataGridColumnHeader}"
+                      RowStyle="{StaticResource DarkDataGridRow}"
+                      CellStyle="{StaticResource DarkDataGridCell}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60"/>
+                    <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="150"/>
+                    <DataGridTextColumn Header="Роль" Binding="{Binding Role.Name}" Width="150"/>
+                    <DataGridTextColumn Header="Активен" Binding="{Binding IsActive}" Width="80"/>
+                    <DataGridTextColumn Header="Хеш пароля" Binding="{Binding PasswordHash}" Width="200"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</Page>

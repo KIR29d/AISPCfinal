@@ -1,0 +1,49 @@
+<Page x:Class="AISPC.Views.Pages.AssemblyPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Сборка"
+      Style="{StaticResource DarkPage}">
+
+    <Grid Margin="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Text="🔨 Управление сборкой" 
+                   Style="{StaticResource DarkTitle}"/>
+        
+        <!-- Панель инструментов -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,25">
+            <Button Content="➕ Новая задача" Margin="0,0,15,0"
+                    Style="{StaticResource DarkButton}"
+                    Click="AddTask_Click"/>
+            <Button Content="✏️ Изменить статус" Margin="0,0,15,0"
+                    Style="{StaticResource DarkButton}"
+                    Click="ChangeStatus_Click"/>
+            <Button Content="📋 Детали"
+                    Style="{StaticResource DarkButton}"
+                    Click="ShowDetails_Click"/>
+        </StackPanel>
+        
+        <!-- Таблица задач сборки -->
+        <Border Grid.Row="2" Style="{StaticResource DarkBorder}">
+            <DataGrid x:Name="AssemblyGrid" 
+                      Style="{StaticResource DarkDataGrid}"
+                      ColumnHeaderStyle="{StaticResource DarkDataGridColumnHeader}"
+                      RowStyle="{StaticResource DarkDataGridRow}"
+                      CellStyle="{StaticResource DarkDataGridCell}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="№ Задачи" Binding="{Binding Id}" Width="100"/>
+                    <DataGridTextColumn Header="Заказ" Binding="{Binding OrderId}" Width="100"/>
+                    <DataGridTextColumn Header="Сборщик" Binding="{Binding AssemblerName}" Width="200"/>
+                    <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="150"/>
+                    <DataGridTextColumn Header="Дата начала" Binding="{Binding StartDate, StringFormat=dd.MM.yyyy}" Width="120"/>
+                    <DataGridTextColumn Header="Примечания" Binding="{Binding Notes}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</Page>

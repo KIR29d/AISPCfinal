@@ -1,0 +1,198 @@
+<Page x:Class="AISPC.Views.Pages.ReportsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Отчеты"
+      Style="{StaticResource DarkPage}">
+
+    <Grid Margin="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Text="📊 Отчеты и аналитика" 
+                   Style="{StaticResource DarkTitle}"/>
+        
+        <!-- Панель фильтров -->
+        <Border Grid.Row="1" Style="{StaticResource DarkBorder}" 
+                Padding="20" Margin="0,0,0,25">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" Text="Период:" VerticalAlignment="Center" 
+                           Margin="0,0,15,0" Foreground="#F0F6FC" FontWeight="SemiBold"/>
+                <DatePicker x:Name="StartDatePicker" Grid.Column="1" Margin="0,0,25,0"
+                           Style="{StaticResource DarkDatePicker}"/>
+                
+                <TextBlock Grid.Column="2" Text="по:" VerticalAlignment="Center" 
+                           Margin="0,0,15,0" Foreground="#F0F6FC" FontWeight="SemiBold"/>
+                <DatePicker x:Name="EndDatePicker" Grid.Column="3" Margin="0,0,25,0"
+                           Style="{StaticResource DarkDatePicker}"/>
+                
+                <Button Grid.Column="4" Content="📊 Сформировать"
+                        Style="{StaticResource DarkButton}"
+                        Click="GenerateReport_Click"/>
+            </Grid>
+        </Border>
+        
+        <!-- Область отчетов -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            
+            <!-- Отчет по продажам -->
+            <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource DarkBorder}"
+                    Margin="0,0,15,15" Padding="20">
+                <StackPanel>
+                    <TextBlock Text="📈 Отчет по продажам" FontSize="18" FontWeight="Bold" 
+                               Margin="0,0,0,20" Foreground="#F0F6FC"/>
+                    <StackPanel x:Name="SalesReportPanel">
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Общая сумма продаж:" Foreground="#8B949E"/>
+                            <TextBlock Grid.Column="1" Text="1 250 000 ₽" FontWeight="Bold" Foreground="#2EA043"/>
+                        </Grid>
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Количество заказов:" Foreground="#8B949E"/>
+                            <TextBlock Grid.Column="1" Text="45" FontWeight="Bold" Foreground="#F0F6FC"/>
+                        </Grid>
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Средний чек:" Foreground="#8B949E"/>
+                            <TextBlock Grid.Column="1" Text="27 778 ₽" FontWeight="Bold" Foreground="#F0F6FC"/>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            
+            <!-- Отчет по компонентам -->
+            <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource DarkBorder}"
+                    Margin="15,0,0,15" Padding="20">
+                <StackPanel>
+                    <TextBlock Text="🛠️ Популярные компоненты" FontSize="18" FontWeight="Bold" 
+                               Margin="0,0,0,20" Foreground="#F0F6FC"/>
+                    <StackPanel x:Name="ComponentsReportPanel">
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="1. Intel Core i7-13700K" Foreground="#8B949E"/>
+                            <TextBlock Grid.Column="1" Text="25 шт." FontWeight="Bold" Foreground="#F0F6FC"/>
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="2. NVIDIA RTX 4070" Foreground="#8B949E"/>
+                            <TextBlock Grid.Column="1" Text="18 шт." FontWeight="Bold" Foreground="#F0F6FC"/>
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="3. Samsung 980 PRO 1TB" Foreground="#8B949E"/>
+                            <TextBlock Grid.Column="1" Text="15 шт." FontWeight="Bold" Foreground="#F0F6FC"/>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            
+            <!-- Отчет по клиентам -->
+            <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource DarkBorder}"
+                    Margin="0,15,15,0" Padding="20">
+                <StackPanel>
+                    <TextBlock Text="👥 Топ клиенты" FontSize="18" FontWeight="Bold" 
+                               Margin="0,0,0,20" Foreground="#F0F6FC"/>
+                    <StackPanel x:Name="ClientsReportPanel">
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="ООО Техносфера" Foreground="#8B949E"/>
+                            <TextBlock Grid.Column="1" Text="450 000 ₽" FontWeight="Bold" Foreground="#2EA043"/>
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="ООО Компьютеры+" Foreground="#8B949E"/>
+                            <TextBlock Grid.Column="1" Text="320 000 ₽" FontWeight="Bold" Foreground="#2EA043"/>
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="ИП Петров" Foreground="#8B949E"/>
+                            <TextBlock Grid.Column="1" Text="180 000 ₽" FontWeight="Bold" Foreground="#2EA043"/>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            
+            <!-- Отчет по складу -->
+            <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource DarkBorder}"
+                    Margin="15,15,0,0" Padding="20">
+                <StackPanel>
+                    <TextBlock Text="📦 Состояние склада" FontSize="18" FontWeight="Bold" 
+                               Margin="0,0,0,20" Foreground="#F0F6FC"/>
+                    <StackPanel x:Name="WarehouseReportPanel">
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Всего позиций:" Foreground="#8B949E"/>
+                            <TextBlock Grid.Column="1" Text="156" FontWeight="Bold" Foreground="#F0F6FC"/>
+                        </Grid>
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Требуют пополнения:" Foreground="#8B949E"/>
+                            <TextBlock Grid.Column="1" Text="8" FontWeight="Bold" Foreground="#F85149"/>
+                        </Grid>
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Общая стоимость:" Foreground="#8B949E"/>
+                            <TextBlock Grid.Column="1" Text="2 850 000 ₽" FontWeight="Bold" Foreground="#F0F6FC"/>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>

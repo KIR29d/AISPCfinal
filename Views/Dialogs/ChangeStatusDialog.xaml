@@ -1,0 +1,88 @@
+<Window x:Class="AISPC.Views.Dialogs.ChangeStatusDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Изменение статуса задачи" Height="500" Width="650"
+        WindowStartupLocation="CenterOwner" ResizeMode="CanResize"
+        MinHeight="450" MinWidth="600"
+        Style="{StaticResource DarkWindow}">
+    
+    <Grid Margin="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Row="0" Text="🔄 Изменение статуса сборочной задачи" 
+                   FontSize="20" FontWeight="Bold" Margin="0,0,0,25"
+                   Foreground="#F0F6FC" HorizontalAlignment="Center"/>
+        
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Текущий статус -->
+                <TextBlock Text="Текущий статус" FontSize="16" FontWeight="Bold" 
+                           Margin="0,0,0,15" Foreground="#F0F6FC"/>
+                
+                <Border Style="{StaticResource DarkBorder}" Padding="15" Margin="0,0,0,25">
+                    <StackPanel>
+                        <TextBlock x:Name="CurrentStatusText" Text="Ожидает" 
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="#FFA657" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+                
+                <!-- Новый статус -->
+                <TextBlock Text="Новый статус" FontSize="16" FontWeight="Bold" 
+                           Margin="0,0,0,15" Foreground="#F0F6FC"/>
+                
+                <ComboBox x:Name="StatusComboBox" 
+                          Style="{StaticResource DarkComboBox}" Height="45" Margin="0,0,0,25"
+                          SelectionChanged="StatusComboBox_SelectionChanged">
+                    <ComboBoxItem Content="Ожидает" Style="{StaticResource DarkComboBoxItem}" Tag="#FFA657"/>
+                    <ComboBoxItem Content="В работе" Style="{StaticResource DarkComboBoxItem}" Tag="#58A6FF"/>
+                    <ComboBoxItem Content="Приостановлено" Style="{StaticResource DarkComboBoxItem}" Tag="#F85149"/>
+                    <ComboBoxItem Content="Завершено" Style="{StaticResource DarkComboBoxItem}" Tag="#3FB950"/>
+                    <ComboBoxItem Content="Отменено" Style="{StaticResource DarkComboBoxItem}" Tag="#8B949E"/>
+                </ComboBox>
+                
+                <!-- Комментарий -->
+                <TextBlock Text="Комментарий к изменению" FontSize="16" FontWeight="Bold" 
+                           Margin="0,0,0,15" Foreground="#F0F6FC"/>
+                
+                <TextBox x:Name="CommentTextBox" 
+                         Style="{StaticResource DarkTextBox}" Height="100" Margin="0,0,0,20"
+                         TextWrapping="Wrap" AcceptsReturn="True"
+                         GotFocus="CommentTextBox_GotFocus" LostFocus="CommentTextBox_LostFocus"
+                         Foreground="#C9D1D9" Text="Укажите причину изменения статуса (необязательно)"/>
+                
+                <!-- Дата и время изменения -->
+                <CheckBox x:Name="SetCompletionDateCheckBox" Content="Установить дату завершения" 
+                          Style="{StaticResource DarkCheckBox}" Margin="0,0,0,15"
+                          Checked="SetCompletionDateCheckBox_Checked" Unchecked="SetCompletionDateCheckBox_Unchecked"/>
+                
+                <DatePicker x:Name="CompletionDatePicker" 
+                           Style="{StaticResource DarkDatePicker}" Height="40" Margin="0,0,0,20"
+                           IsEnabled="False"/>
+                
+                <!-- Предварительный просмотр -->
+                <Border Style="{StaticResource DarkBorder}" Padding="15">
+                    <StackPanel>
+                        <TextBlock Text="🔄 Предварительный просмотр изменений" FontSize="14" FontWeight="Bold" 
+                                   Margin="0,0,0,10" Foreground="#58A6FF"/>
+                        <TextBlock x:Name="PreviewText" Text="Выберите новый статус для задачи" 
+                                   Foreground="#C9D1D9" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,25,0,0">
+            <Button Content="💾 Применить изменения" Margin="0,0,15,0"
+                    Style="{StaticResource DarkButton}"
+                    Click="Apply_Click"/>
+            <Button Content="❌ Отмена"
+                    Style="{StaticResource DarkButton}"
+                    Click="Cancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

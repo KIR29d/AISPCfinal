@@ -1,0 +1,129 @@
+<Window x:Class="AISPC.Views.Dialogs.ClientManagementDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Управление клиентами" Height="650" Width="900"
+        WindowStartupLocation="CenterOwner" ResizeMode="CanResize"
+        MinHeight="600" MinWidth="850"
+        Style="{StaticResource DarkWindow}">
+    
+    <Grid Margin="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock x:Name="TitleTextBlock" Grid.Row="0" Text="👤 Добавление клиента" 
+                   FontSize="22" FontWeight="Bold" Margin="0,0,0,25"
+                   Foreground="#F0F6FC" HorizontalAlignment="Center"/>
+        
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Основная информация -->
+                <TextBlock Text="Основная информация" FontSize="16" FontWeight="Bold" 
+                           Margin="0,0,0,15" Foreground="#F0F6FC"/>
+                
+                <Grid Margin="0,0,0,25">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Название/ФИО:" 
+                               VerticalAlignment="Center" Margin="0,0,0,15" 
+                               Foreground="#F0F6FC" FontWeight="SemiBold"/>
+                    <TextBox x:Name="NameTextBox" Grid.Row="0" Grid.Column="1" 
+                             Style="{StaticResource DarkTextBox}" Margin="0,0,0,15"
+                             GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
+                             Foreground="#C9D1D9" Text="Введите название компании или ФИО"/>
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Тип клиента:" 
+                               VerticalAlignment="Center" Margin="0,0,0,15" 
+                               Foreground="#F0F6FC" FontWeight="SemiBold"/>
+                    <ComboBox x:Name="ClientTypeComboBox" Grid.Row="1" Grid.Column="1" 
+                              Style="{StaticResource DarkComboBox}" Margin="0,0,0,15">
+                        <ComboBoxItem Content="ООО" Style="{StaticResource DarkComboBoxItem}"/>
+                        <ComboBoxItem Content="ИП" Style="{StaticResource DarkComboBoxItem}"/>
+                        <ComboBoxItem Content="ЗАО" Style="{StaticResource DarkComboBoxItem}"/>
+                        <ComboBoxItem Content="ОАО" Style="{StaticResource DarkComboBoxItem}"/>
+                        <ComboBoxItem Content="Физическое лицо" Style="{StaticResource DarkComboBoxItem}"/>
+                    </ComboBox>
+                    
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="ИНН:" 
+                               VerticalAlignment="Center" Margin="0,0,0,15" 
+                               Foreground="#F0F6FC" FontWeight="SemiBold"/>
+                    <TextBox x:Name="INNTextBox" Grid.Row="2" Grid.Column="1" 
+                             Style="{StaticResource DarkTextBox}" Margin="0,0,0,15"
+                             GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
+                             Foreground="#C9D1D9" Text="Введите ИНН (необязательно)"/>
+                    
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Телефон:" 
+                               VerticalAlignment="Center" Margin="0,0,0,15" 
+                               Foreground="#F0F6FC" FontWeight="SemiBold"/>
+                    <TextBox x:Name="PhoneTextBox" Grid.Row="3" Grid.Column="1" 
+                             Style="{StaticResource DarkTextBox}" Margin="0,0,0,15"
+                             GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
+                             Foreground="#C9D1D9" Text="Введите номер телефона"/>
+                    
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Email:" 
+                               VerticalAlignment="Center" 
+                               Foreground="#F0F6FC" FontWeight="SemiBold"/>
+                    <TextBox x:Name="EmailTextBox" Grid.Row="4" Grid.Column="1" 
+                             Style="{StaticResource DarkTextBox}"
+                             GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
+                             Foreground="#C9D1D9" Text="Введите email адрес"/>
+                </Grid>
+                
+                <!-- Адрес -->
+                <TextBlock Text="Адрес" FontSize="16" FontWeight="Bold" 
+                           Margin="0,0,0,15" Foreground="#F0F6FC"/>
+                
+                <TextBox x:Name="AddressTextBox" 
+                         Style="{StaticResource DarkTextBox}" Height="60" Margin="0,0,0,20"
+                         TextWrapping="Wrap" AcceptsReturn="True"
+                         GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
+                         Foreground="#C9D1D9" Text="Введите адрес клиента"/>
+                
+                <!-- Примечания -->
+                <TextBlock Text="Примечания" FontSize="16" FontWeight="Bold" 
+                           Margin="0,0,0,15" Foreground="#F0F6FC"/>
+                
+                <TextBox x:Name="NotesTextBox" 
+                         Style="{StaticResource DarkTextBox}" Height="80" Margin="0,0,0,20"
+                         TextWrapping="Wrap" AcceptsReturn="True"
+                         GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
+                         Foreground="#C9D1D9" Text="Дополнительная информация о клиенте (необязательно)"/>
+                
+                <!-- Статус -->
+                <CheckBox x:Name="IsActiveCheckBox" Content="Активный клиент" 
+                          Style="{StaticResource DarkCheckBox}" IsChecked="True" Margin="0,0,0,20"/>
+                
+                <!-- Предварительный просмотр -->
+                <Border Style="{StaticResource DarkBorder}" Padding="15">
+                    <StackPanel>
+                        <TextBlock Text="👤 Предварительный просмотр" FontSize="14" FontWeight="Bold" 
+                                   Margin="0,0,0,10" Foreground="#58A6FF"/>
+                        <TextBlock x:Name="PreviewText" Text="Клиент будет добавлен в базу данных" 
+                                   Foreground="#C9D1D9" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,25,0,0">
+            <Button x:Name="SaveButton" Content="💾 Добавить клиента" Margin="0,0,15,0"
+                    Style="{StaticResource DarkButton}"
+                    Click="Save_Click"/>
+            <Button Content="❌ Отмена"
+                    Style="{StaticResource DarkButton}"
+                    Click="Cancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

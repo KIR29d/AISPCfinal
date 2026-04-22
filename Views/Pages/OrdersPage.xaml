@@ -1,0 +1,47 @@
+<Page x:Class="AISPC.Views.Pages.OrdersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Управление заказами"
+      Style="{StaticResource DarkPage}">
+
+    <Grid Margin="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Row="0" Text="📋 Управление заказами" 
+                   Style="{StaticResource DarkTitle}"/>
+        
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,25">
+            <Button Content="➕ Новый заказ" Margin="0,0,15,0"
+                    Style="{StaticResource DarkButton}"
+                    Click="NewOrder_Click"/>
+            <Button Content="✏️ Изменить статус" Margin="0,0,15,0"
+                    Style="{StaticResource DarkButton}"
+                    Click="ChangeStatus_Click"/>
+            <Button Content="📋 Детали заказа"
+                    Style="{StaticResource DarkButton}"
+                    Click="OrderDetails_Click"/>
+        </StackPanel>
+        
+        <Border Grid.Row="2" Style="{StaticResource DarkBorder}">
+            <DataGrid x:Name="OrdersGrid" 
+                      Style="{StaticResource DarkDataGrid}"
+                      ColumnHeaderStyle="{StaticResource DarkDataGridColumnHeader}"
+                      RowStyle="{StaticResource DarkDataGridRow}"
+                      CellStyle="{StaticResource DarkDataGridCell}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="№ Заказа" Binding="{Binding Id}" Width="100"/>
+                    <DataGridTextColumn Header="Клиент" Binding="{Binding ClientName}" Width="200"/>
+                    <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="150"/>
+                    <DataGridTextColumn Header="Сумма" Binding="{Binding TotalAmount, StringFormat=C}" Width="120"/>
+                    <DataGridTextColumn Header="Дата заказа" Binding="{Binding OrderDate, StringFormat=dd.MM.yyyy}" Width="120"/>
+                    <DataGridTextColumn Header="Приоритет" Binding="{Binding Priority}" Width="100"/>
+                    <DataGridTextColumn Header="Примечания" Binding="{Binding Notes}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</Page>

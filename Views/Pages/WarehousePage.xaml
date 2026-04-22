@@ -1,0 +1,52 @@
+<Page x:Class="AISPC.Views.Pages.WarehousePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Склад"
+      Style="{StaticResource DarkPage}">
+
+    <Grid Margin="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Text="📦 Управление складом" 
+                   Style="{StaticResource DarkTitle}"/>
+        
+        <!-- Панель инструментов -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,25">
+            <Button Content="📦 Поступление" Margin="0,0,15,0"
+                    Style="{StaticResource DarkButton}"
+                    Click="Incoming_Click"/>
+            <Button Content="📤 Списание" Margin="0,0,15,0"
+                    Style="{StaticResource DarkButton}"
+                    Click="WriteOff_Click"/>
+            <Button Content="🔄 Перемещение" Margin="0,0,15,0"
+                    Style="{StaticResource DarkButton}"
+                    Click="Movement_Click"/>
+            <Button Content="📋 Инвентаризация"
+                    Style="{StaticResource DarkButton}"
+                    Click="Inventory_Click"/>
+        </StackPanel>
+        
+        <!-- Таблица остатков -->
+        <Border Grid.Row="2" Style="{StaticResource DarkBorder}">
+            <DataGrid x:Name="WarehouseGrid" 
+                      Style="{StaticResource DarkDataGrid}"
+                      ColumnHeaderStyle="{StaticResource DarkDataGridColumnHeader}"
+                      RowStyle="{StaticResource DarkDataGridRow}"
+                      CellStyle="{StaticResource DarkDataGridCell}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Компонент" Binding="{Binding ComponentName}" Width="250"/>
+                    <DataGridTextColumn Header="Категория" Binding="{Binding Category}" Width="120"/>
+                    <DataGridTextColumn Header="Остаток" Binding="{Binding Quantity}" Width="100"/>
+                    <DataGridTextColumn Header="Мин. остаток" Binding="{Binding MinLevel}" Width="100"/>
+                    <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="120"/>
+                    <DataGridTextColumn Header="Последнее движение" Binding="{Binding LastMovement, StringFormat=dd.MM.yyyy}" Width="150"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</Page>

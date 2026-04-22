@@ -1,0 +1,116 @@
+<Window x:Class="AISPC.Views.Dialogs.AddOrderDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Создание нового заказа" Height="600" Width="750"
+        WindowStartupLocation="CenterOwner" ResizeMode="CanResize"
+        MinHeight="550" MinWidth="700"
+        Style="{StaticResource DarkWindow}">
+    
+    <Grid Margin="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Row="0" Text="📋 Создание нового заказа" 
+                   FontSize="22" FontWeight="Bold" Margin="0,0,0,25"
+                   Foreground="#F0F6FC" HorizontalAlignment="Center"/>
+        
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Информация о клиенте -->
+                <TextBlock Text="Информация о клиенте" FontSize="16" FontWeight="Bold" 
+                           Margin="0,0,0,15" Foreground="#F0F6FC"/>
+                
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Клиент:" 
+                               VerticalAlignment="Center" Margin="0,0,0,15" 
+                               Foreground="#F0F6FC" FontWeight="SemiBold"/>
+                    <TextBox x:Name="ClientNameTextBox" Grid.Row="0" Grid.Column="1" 
+                             Style="{StaticResource DarkTextBox}" Margin="0,0,0,15"
+                             Text="ООО Новый клиент"/>
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Приоритет:" 
+                               VerticalAlignment="Center" Margin="0,0,0,15" 
+                               Foreground="#F0F6FC" FontWeight="SemiBold"/>
+                    <ComboBox x:Name="PriorityComboBox" Grid.Row="1" Grid.Column="1" 
+                              Style="{StaticResource DarkComboBox}" Margin="0,0,0,15"
+                              SelectedIndex="1">
+                        <ComboBoxItem Content="Низкий" Style="{StaticResource DarkComboBoxItem}"/>
+                        <ComboBoxItem Content="Обычный" Style="{StaticResource DarkComboBoxItem}"/>
+                        <ComboBoxItem Content="Высокий" Style="{StaticResource DarkComboBoxItem}"/>
+                        <ComboBoxItem Content="Критический" Style="{StaticResource DarkComboBoxItem}"/>
+                    </ComboBox>
+                    
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Примечания:" 
+                               VerticalAlignment="Top" Margin="0,5,0,0" 
+                               Foreground="#F0F6FC" FontWeight="SemiBold"/>
+                    <TextBox x:Name="NotesTextBox" Grid.Row="2" Grid.Column="1" 
+                             Style="{StaticResource DarkTextBox}" Height="80"
+                             TextWrapping="Wrap" AcceptsReturn="True"
+                             Text="Описание заказа..."/>
+                </Grid>
+                
+                <!-- Детали заказа -->
+                <TextBlock Text="Детали заказа" FontSize="16" FontWeight="Bold" 
+                           Margin="0,0,0,15" Foreground="#F0F6FC"/>
+                
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Сумма заказа:" 
+                               VerticalAlignment="Center" Margin="0,0,0,15" 
+                               Foreground="#F0F6FC" FontWeight="SemiBold"/>
+                    <TextBox x:Name="TotalAmountTextBox" Grid.Row="0" Grid.Column="1" 
+                             Style="{StaticResource DarkTextBox}" Margin="0,0,0,15"
+                             Text="100000"/>
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Дата заказа:" 
+                               VerticalAlignment="Center" 
+                               Foreground="#F0F6FC" FontWeight="SemiBold"/>
+                    <DatePicker x:Name="OrderDatePicker" Grid.Row="1" Grid.Column="1" 
+                                Style="{StaticResource DarkDatePicker}"
+                                SelectedDate="{x:Static sys:DateTime.Now}"
+                                xmlns:sys="clr-namespace:System;assembly=mscorlib"/>
+                </Grid>
+                
+                <!-- Предварительный просмотр -->
+                <Border Style="{StaticResource DarkBorder}" Padding="15" Margin="0,10,0,0">
+                    <StackPanel>
+                        <TextBlock Text="📋 Предварительный просмотр" FontSize="14" FontWeight="Bold" 
+                                   Margin="0,0,0,10" Foreground="#58A6FF"/>
+                        <TextBlock x:Name="PreviewText" Text="Заказ будет создан со статусом 'Новый'" 
+                                   Foreground="#C9D1D9" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,25,0,0">
+            <Button Content="💾 Создать заказ" Margin="0,0,15,0"
+                    Style="{StaticResource DarkButton}"
+                    Click="CreateOrder_Click"/>
+            <Button Content="❌ Отмена"
+                    Style="{StaticResource DarkButton}"
+                    Click="Cancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

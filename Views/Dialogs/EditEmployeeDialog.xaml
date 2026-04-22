@@ -1,0 +1,77 @@
+<Window x:Class="AISPC.Views.Dialogs.EditEmployeeDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Редактировать сотрудника"
+        Width="650" Height="550"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResize"
+        MinHeight="500" MinWidth="600"
+        Background="#0D1117">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Text="✏️ Редактировать сотрудника" 
+                   FontSize="18" FontWeight="Bold" 
+                   Foreground="#F0F6FC" Margin="0,0,0,20"/>
+
+        <!-- Форма -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- ФИО -->
+                <TextBlock Text="ФИО:" Foreground="#F0F6FC" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                <TextBox x:Name="FullNameTextBox" Margin="0,0,0,15" Height="35"
+                         Background="#21262D" Foreground="#F0F6FC" BorderBrush="#30363D"
+                         Padding="10,8" FontSize="14"/>
+
+                <!-- Должность -->
+                <TextBlock Text="Должность:" Foreground="#F0F6FC" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                <TextBox x:Name="PositionTextBox" Margin="0,0,0,15" Height="35"
+                         Background="#21262D" Foreground="#F0F6FC" BorderBrush="#30363D"
+                         Padding="10,8" FontSize="14"/>
+
+                <!-- Телефон -->
+                <TextBlock Text="Телефон:" Foreground="#F0F6FC" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                <TextBox x:Name="PhoneTextBox" Margin="0,0,0,15" Height="35"
+                         Background="#21262D" Foreground="#F0F6FC" BorderBrush="#30363D"
+                         Padding="10,8" FontSize="14"/>
+
+                <!-- Email -->
+                <TextBlock Text="Email:" Foreground="#F0F6FC" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                <TextBox x:Name="EmailTextBox" Margin="0,0,0,15" Height="35"
+                         Background="#21262D" Foreground="#F0F6FC" BorderBrush="#30363D"
+                         Padding="10,8" FontSize="14"/>
+
+                <!-- Дата приема -->
+                <TextBlock Text="Дата приема:" Foreground="#F0F6FC" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                <DatePicker x:Name="HireDatePicker" Margin="0,0,0,15" Height="35"
+                           Background="#21262D" Foreground="#F0F6FC" BorderBrush="#30363D"/>
+
+                <!-- Зарплата -->
+                <TextBlock Text="Зарплата (руб.):" Foreground="#F0F6FC" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                <TextBox x:Name="SalaryTextBox" Margin="0,0,0,15" Height="35"
+                         Background="#21262D" Foreground="#F0F6FC" BorderBrush="#30363D"
+                         Padding="10,8" FontSize="14"/>
+
+                <!-- Активен -->
+                <CheckBox x:Name="IsActiveCheckBox" Content="Активен" Margin="0,0,0,15"
+                          Foreground="#F0F6FC" FontWeight="SemiBold"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Кнопки -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="Отмена" Width="100" Height="35" Margin="0,0,15,0"
+                    Background="#21262D" Foreground="#F0F6FC" BorderBrush="#30363D"
+                    Click="Cancel_Click"/>
+            <Button Content="Сохранить" Width="100" Height="35"
+                    Background="#238636" Foreground="White" BorderBrush="#238636"
+                    Click="Save_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

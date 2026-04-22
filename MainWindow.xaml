@@ -1,0 +1,353 @@
+﻿<Window x:Class="AISPC.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AISPC - Система управления сборкой ПК" 
+        Height="900" Width="1400" 
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize"
+        MinHeight="800" MinWidth="1200"
+        Background="#1A1A1A"
+        Loaded="Window_Loaded">
+    
+    <Window.Resources>
+        <!-- Темная тема для кнопок -->
+        <Style x:Key="DarkButton" TargetType="Button">
+            <Setter Property="Background" Value="#0078D4"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,15"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="MinHeight" Value="50"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="8" 
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#106EBE"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#005A9E"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#404040"/>
+                                <Setter Property="Foreground" Value="#808080"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Темная тема для текстовых полей -->
+        <Style x:Key="DarkTextBox" TargetType="TextBox">
+            <Setter Property="Padding" Value="15,12"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="Background" Value="#2D2D2D"/>
+            <Setter Property="Foreground" Value="#F0F6FC"/>
+            <Setter Property="CaretBrush" Value="White"/>
+            <Setter Property="MinHeight" Value="50"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                        Margin="{TemplateBinding Padding}"
+                                        VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="#0078D4"/>
+                                <Setter Property="Background" Value="#333333"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Темная тема для PasswordBox -->
+        <Style x:Key="DarkPasswordBox" TargetType="PasswordBox">
+            <Setter Property="Padding" Value="15,12"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="Background" Value="#2D2D2D"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CaretBrush" Value="White"/>
+            <Setter Property="MinHeight" Value="45"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                        Margin="{TemplateBinding Padding}"
+                                        VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="#0078D4"/>
+                                <Setter Property="Background" Value="#333333"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Стиль для информационных карточек -->
+        <Style x:Key="FeatureCard" TargetType="Border">
+            <Setter Property="Background" Value="#2D2D2D"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="15,12"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#333333"/>
+                    <Setter Property="BorderBrush" Value="#0078D4"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <!-- Фоновый градиент -->
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#1A1A1A" Offset="0"/>
+                <GradientStop Color="#0D1117" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!-- Основной контейнер -->
+        <Border Background="#161B22" 
+                CornerRadius="15" 
+                Margin="30"
+                BorderThickness="1"
+                BorderBrush="#30363D">
+            <Border.Effect>
+                <DropShadowEffect Color="Black" 
+                                Direction="315" 
+                                ShadowDepth="8" 
+                                Opacity="0.5" 
+                                BlurRadius="20"/>
+            </Border.Effect>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Заголовок -->
+                <Border Grid.Row="0" 
+                        Background="#0D1117" 
+                        CornerRadius="15,15,0,0" 
+                        Padding="40,25"
+                        BorderBrush="#30363D"
+                        BorderThickness="0,0,0,1">
+                    <StackPanel>
+                        <TextBlock Text="🖥️ AISPC" 
+                                 FontSize="36" 
+                                 FontWeight="Bold" 
+                                 Foreground="#58A6FF" 
+                                 HorizontalAlignment="Center"/>
+                        <TextBlock Text="Автоматизированная информационная система сборки ПК" 
+                                 FontSize="18" 
+                                 Foreground="#C9D1D9" 
+                                 HorizontalAlignment="Center" 
+                                 Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Основное содержимое -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <Grid Margin="40,30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="400"/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Левая панель - Форма входа -->
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="🔐 Вход в систему" 
+                                     FontSize="26" 
+                                     FontWeight="Bold" 
+                                     Foreground="#F0F6FC" 
+                                     HorizontalAlignment="Center" 
+                                     Margin="0,0,0,35"/>
+
+                            <TextBlock Text="Логин:" 
+                                     FontSize="15" 
+                                     FontWeight="SemiBold" 
+                                     Foreground="#F0F6FC" 
+                                     Margin="0,0,0,8"/>
+                            <TextBox x:Name="LoginBox" 
+                                   Style="{StaticResource DarkTextBox}"
+                                   Margin="0,0,0,25"
+                                   KeyDown="LoginBox_KeyDown"
+                                   GotFocus="LoginBox_GotFocus"
+                                   LostFocus="LoginBox_LostFocus"
+                                   Foreground="#C9D1D9"
+                                   Text="Введите логин"/>
+
+                            <TextBlock Text="Пароль:" 
+                                     FontSize="15" 
+                                     FontWeight="SemiBold" 
+                                     Foreground="#F0F6FC" 
+                                     Margin="0,0,0,8"/>
+                            <Grid Margin="0,0,0,30">
+                                <PasswordBox x:Name="PasswordBox" 
+                                           Style="{StaticResource DarkPasswordBox}"
+                                           KeyDown="PasswordBox_KeyDown"
+                                           GotFocus="PasswordBox_GotFocus"
+                                           LostFocus="PasswordBox_LostFocus"/>
+                                <TextBlock x:Name="PasswordPlaceholder"
+                                         Text="Введите пароль"
+                                         FontSize="14"
+                                         Foreground="#C9D1D9"
+                                         Margin="15,12,0,0"
+                                         VerticalAlignment="Center"
+                                         IsHitTestVisible="False"
+                                         Visibility="Visible"/>
+                            </Grid>
+
+                            <Button x:Name="LoginButton" 
+                                  Content="🚀 Войти в систему" 
+                                  Style="{StaticResource DarkButton}"
+                                  Click="LoginButton_Click" 
+                                  Margin="0,0,0,25"/>
+
+                            <TextBlock x:Name="StatusText" 
+                                     Text="" 
+                                     FontSize="13" 
+                                     HorizontalAlignment="Center" 
+                                     TextWrapping="Wrap"
+                                     Foreground="#C9D1D9"/>
+                        </StackPanel>
+
+                        <!-- Разделитель -->
+                        <Rectangle Grid.Column="1" 
+                                 Fill="#30363D" 
+                                 Width="1" 
+                                 Margin="20,30"/>
+
+                        <!-- Правая панель - Информация о системе -->
+                        <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="0,0,20,0">
+                            <TextBlock Text="📊 Возможности системы" 
+                                     FontSize="22" 
+                                     FontWeight="Bold" 
+                                     Foreground="#F0F6FC" 
+                                     HorizontalAlignment="Center" 
+                                     Margin="0,0,0,30"/>
+
+                            <Border Style="{StaticResource FeatureCard}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="🛠️" FontSize="22" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                                    <StackPanel>
+                                        <TextBlock Text="Управление компонентами" FontWeight="SemiBold" FontSize="15" Foreground="#F0F6FC"/>
+                                        <TextBlock Text="Каталог деталей и комплектующих" FontSize="13" Foreground="#C9D1D9"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource FeatureCard}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="📋" FontSize="22" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                                    <StackPanel>
+                                        <TextBlock Text="Управление заказами" FontWeight="SemiBold" FontSize="15" Foreground="#F0F6FC"/>
+                                        <TextBlock Text="Отслеживание статуса сборки" FontSize="13" Foreground="#C9D1D9"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource FeatureCard}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="👥" FontSize="22" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                                    <StackPanel>
+                                        <TextBlock Text="Управление клиентами" FontWeight="SemiBold" FontSize="15" Foreground="#F0F6FC"/>
+                                        <TextBlock Text="База данных заказчиков" FontSize="13" Foreground="#C9D1D9"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource FeatureCard}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="📊" FontSize="22" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                                    <StackPanel>
+                                        <TextBlock Text="Отчеты и аналитика" FontWeight="SemiBold" FontSize="15" Foreground="#F0F6FC"/>
+                                        <TextBlock Text="Статистика продаж и склада" FontSize="13" Foreground="#C9D1D9"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource FeatureCard}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="📦" FontSize="22" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                                    <StackPanel>
+                                        <TextBlock Text="Управление складом" FontWeight="SemiBold" FontSize="15" Foreground="#F0F6FC"/>
+                                        <TextBlock Text="Учет остатков и поставок" FontSize="13" Foreground="#C9D1D9"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+
+                <!-- Нижняя панель -->
+                <Border Grid.Row="2" 
+                        Background="#0D1117" 
+                        CornerRadius="0,0,15,15" 
+                        Padding="25,18"
+                        BorderBrush="#30363D"
+                        BorderThickness="0,1,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock Text="💡 Тестовые учетные записи:" 
+                                     Foreground="#C9D1D9" 
+                                     FontSize="13" 
+                                     VerticalAlignment="Center"/>
+                            <TextBlock Text="admin/admin, manager/manager, assembler/assembler" 
+                                     Foreground="#58A6FF" 
+                                     FontSize="13" 
+                                     FontWeight="SemiBold" 
+                                     VerticalAlignment="Center" 
+                                     Margin="12,0,0,0"/>
+                        </StackPanel>
+
+                        <TextBlock Grid.Column="1" 
+                                 Text="© 2026 AISPC v1.0" 
+                                 Foreground="#6E7681" 
+                                 FontSize="13" 
+                                 VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
