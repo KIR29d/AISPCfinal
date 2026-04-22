@@ -1,1 +1,1 @@
-Nothing should be ignored in this case. The added file is a .docx document which appears to be source content rather than a build artifact or temporary file.
+Nothing should be ignored based on the provided file changes. The added file appears to be a text document with Cyrillic characters in the filename, which is likely a source/config file rather than a build artifact or temporary file.
